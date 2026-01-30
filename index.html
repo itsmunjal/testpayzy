@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payzy Pro</title>
+  <script>
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (/android/i.test(ua)) {
+      window.location.href = "https://play.google.com/store/apps/details?id=gr.payzy.pro";
+    } else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+      window.location.href = "https://apps.apple.com/gr/app/payzy-pro/id6448839776";
+    } else {
+      window.location.href = "https://apps.apple.com/gr/app/payzy-pro/id6448839776";
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>
