@@ -3,79 +3,317 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payzy Registration</title>
+  <title>Magenta Card</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f9fc;
+      font-family: Inter, Arial, sans-serif;
+      background: #d9d9d9;
       display: flex;
-      align-items: center;
       justify-content: center;
+      color: #111;
+    }
+
+    .screen {
+      width: 375px;
       min-height: 100vh;
+      background: #f3f3f3;
+    }
+
+    .hero {
+      background: linear-gradient(90deg, #232323 0%, #1f1f1f 100%);
+      color: #fff;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      padding: 24px 16px 36px;
+      min-height: 220px;
+      position: relative;
+    }
+
+    .topbar {
+      position: relative;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .back {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #fff;
+      background: transparent;
+      border: 0;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+    }
+
+    .card-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      background: #fff;
+      color: #111;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
     }
 
     .card {
-      background: white;
-      padding: 32px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      text-align: center;
-      max-width: 420px;
-      width: 90%;
+      width: 122px;
+      height: 75px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #ff008c 0%, #cf006b 100%);
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "T";
+      position: absolute;
+      left: 38px;
+      top: 13px;
+      color: #fff;
+      font-size: 44px;
+      font-weight: 800;
+      font-family: Arial, sans-serif;
+    }
+
+    .speaker {
+      position: absolute;
+      right: 6px;
+      top: 4px;
+      color: rgba(255,255,255,0.95);
+      font-size: 8px;
+    }
+
+    .visa {
+      position: absolute;
+      right: 7px;
+      bottom: 8px;
+      text-align: right;
+      color: #fff;
+      font-size: 7px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .visa small {
+      display: block;
+      font-size: 4px;
+      opacity: 0.85;
+      margin-top: 1px;
+    }
+
+    .content {
+      padding: 28px 22px 44px;
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 28px;
-      color: #1f2937;
+      margin: 0 0 24px;
+      font-size: 22px;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.3px;
     }
 
     p {
-      color: #4b5563;
-      margin-bottom: 24px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      background: #2563eb;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      transition: background 0.2s ease;
-    }
-
-    .btn:hover {
-      background: #1d4ed8;
-    }
-
-    .download {
-      margin-top: 16px;
-      display: block;
-      color: #2563eb;
-      text-decoration: none;
+      margin: 0 0 24px;
       font-size: 14px;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      max-width: 290px;
+    }
+
+    ul {
+      margin: 0 0 30px 20px;
+      padding: 0;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .cta {
+      background: #ececec;
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      margin-bottom: 26px;
+    }
+
+    .cta-brand {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      font-size: 17px;
+      font-weight: 400;
+    }
+
+    .cta-brand strong {
+      font-weight: 800;
+    }
+
+    .logo {
+      width: 15px;
+      height: 15px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo::before,
+    .logo::after {
+      content: "";
+      position: absolute;
+      border: 3px solid #ec0b8c;
+      border-radius: 4px;
+    }
+
+    .logo::before {
+      width: 10px;
+      height: 10px;
+      border-right: 0;
+      right: 0;
+      top: 0;
+    }
+
+    .logo::after {
+      width: 5px;
+      height: 10px;
+      border-left: 3px solid #ec0b8c;
+      border-top: 0;
+      border-bottom-left-radius: 4px;
+      border-top-left-radius: 0;
+      left: 0;
+      top: 3px;
+    }
+
+    .cta-text {
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 600;
+      max-width: 230px;
+    }
+
+    .cta-arrow {
+      font-size: 24px;
+      line-height: 1;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .more {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 12px 0 12px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid #cfcfcf;
+      font-size: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .chev {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    @media (max-width: 420px) {
+      .screen {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Complete Your Registration</h1>
-    <p>Click below to continue to the Payzy registration page.</p>
-    <a id="mainLink" class="btn" href="#" target="_blank" rel="noopener noreferrer">
-      Go to Registration
-    </a>
-    <a id="downloadLink" class="download" href="#">
-      Download Link
-    </a>
-  </div>
+  <div class="screen">
+    <section class="hero">
+      <div class="topbar">
+        <button class="back" aria-label="Back">&#8249;</button>
+        <div class="title">Magenta Card</div>
+      </div>
 
+      <div class="card-stack">
+        <div class="badge">Not activated</div>
+        <div class="card" aria-hidden="true">
+          <div class="speaker">&#128266;</div>
+          <div class="visa">VISA<small>Debit</small></div>
+        </div>
+      </div>
+    </section>
+
+    <main class="content">
+      <h1>Magenta Card</h1>
+
+      <p>
+        Your Magenta Card gives back with every step.<br>
+        Earn 1% back on every purchase and enjoy exclusive benefits.
+      </p>
+
+      <h2>Activate your card and start rewarding your everyday life:</h2>
+
+      <ul>
+        <li>1% Cashback on everything you buy</li>
+        <li>Exclusive Magenta perks just for Telekom customers</li>
+        <li>Secure control in Payzy</li>
+        <li>Accepted everywhere Visa works</li>
+      </ul>
+
+      <a class="cta" href="https://manage.payzy.de/registration" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="cta-brand"><span class="logo"></span><span>Magenta<strong>Pay</strong></span></div>
+          <div class="cta-text">Download the payment app and complete onboarding to get started.</div>
+        </div>
+        <div class="cta-arrow">&#8594;</div>
+      </a>
+
+      <div class="more">More Information</div>
+
+      <div class="row"><span>Product description</span><span class="chev">&#709;</span></div>
+      <div class="row"><span>About payzy</span><span class="chev">&#709;</span></div>
+      <div class="row"><span>FAQs</span><span class="chev">&#709;</span></div>
+      <div class="row"><span>Financial support contact</span><span class="chev">&#709;</span></div>
+      <div class="row"><span>Promotional support contact</span><span class="chev">&#709;</span></div>
+    </main>
+  </div>
   <script>
     const baseUrl = "https://manage.payzy.de/registration";
-
-    // Get profileid from current URL
     const params = new URLSearchParams(window.location.search);
     const profileId = params.get("profileid");
 
@@ -85,9 +323,7 @@
       finalUrl += `?profileid=${encodeURIComponent(profileId)}`;
     }
 
-    // Apply to both links
-    document.getElementById("mainLink").href = finalUrl;
-    document.getElementById("downloadLink").href = finalUrl;
+    document.querySelector('.cta').href = finalUrl;
   </script>
 </body>
 </html>
