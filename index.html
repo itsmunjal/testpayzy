@@ -64,12 +64,30 @@
   <div class="card">
     <h1>Complete Your Registration</h1>
     <p>Click below to continue to the Payzy registration page.</p>
-    <a class="btn" href="https://manage.payzy.de/registration" target="_blank" rel="noopener noreferrer">
+    <a id="mainLink" class="btn" href="#" target="_blank" rel="noopener noreferrer">
       Go to Registration
     </a>
-    <a class="download" href="https://manage.payzy.de/registration" download>
+    <a id="downloadLink" class="download" href="#">
       Download Link
     </a>
   </div>
+
+  <script>
+    const baseUrl = "https://manage.payzy.de/registration";
+
+    // Get profileid from current URL
+    const params = new URLSearchParams(window.location.search);
+    const profileId = params.get("profileid");
+
+    let finalUrl = baseUrl;
+
+    if (profileId) {
+      finalUrl += `?profileid=${encodeURIComponent(profileId)}`;
+    }
+
+    // Apply to both links
+    document.getElementById("mainLink").href = finalUrl;
+    document.getElementById("downloadLink").href = finalUrl;
+  </script>
 </body>
 </html>
