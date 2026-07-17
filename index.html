@@ -405,11 +405,20 @@
         <li>Accepted everywhere Visa works</li>
       </ul>
 
-      <a
-        class="cta"
-        href="https://manage.payzy.de/wallet/card/landing"
-        rel="noopener noreferrer"
-      >
+
+        <a href="#" onclick="openInBrowser(); return false;">
+  Open MagentaPay
+</a>
+
+<script>
+  function openInBrowser() {
+    window.open(
+      "https://manage.payzy.de/wallet/card/landing",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  }
+</script>
         <div>
           <div class="cta-brand">
             <span class="logo"></span>
