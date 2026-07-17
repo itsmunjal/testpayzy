@@ -1,9 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Magenta Card</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -22,6 +24,79 @@
       width: 375px;
       min-height: 100vh;
       background: #f3f3f3;
+      position: relative;
+    }
+
+    /* Toast */
+
+    .toast {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translate(-50%, -20px);
+      width: calc(100% - 32px);
+      max-width: 343px;
+      background: #ffffff;
+      color: #111111;
+      padding: 14px 16px;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.24);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    .toast-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ec0b8c;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      margin-bottom: 3px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .toast-message {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #555555;
+    }
+
+    .toast-close {
+      border: 0;
+      background: transparent;
+      color: #555555;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 2px;
     }
 
     .hero {
@@ -101,7 +176,7 @@
       position: absolute;
       right: 6px;
       top: 4px;
-      color: rgba(255,255,255,0.95);
+      color: rgba(255, 255, 255, 0.95);
       font-size: 8px;
     }
 
@@ -235,7 +310,7 @@
     .more {
       font-size: 14px;
       font-weight: 500;
-      margin: 12px 0 12px;
+      margin: 12px 0;
     }
 
     .row {
@@ -261,7 +336,36 @@
     }
   </style>
 </head>
+
 <body>
+
+  <!-- Top toast -->
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <div class="toast-icon">✓</div>
+
+    <div class="toast-content">
+      <div class="toast-title">Magenta Card</div>
+      <div class="toast-message">
+        Activate your card to start earning 1% cashback.
+      </div>
+    </div>
+
+    <button
+      class="toast-close"
+      type="button"
+      aria-label="Close notification"
+      onclick="hideToast()"
+    >
+      &times;
+    </button>
+  </div>
+
   <div class="screen">
     <section class="hero">
       <div class="topbar">
@@ -271,9 +375,13 @@
 
       <div class="card-stack">
         <div class="badge">Not activated</div>
+
         <div class="card" aria-hidden="true">
           <div class="speaker">&#128266;</div>
-          <div class="visa">VISA<small>Debit</small></div>
+          <div class="visa">
+            VISA
+            <small>Debit</small>
+          </div>
         </div>
       </div>
     </section>
@@ -282,11 +390,13 @@
       <h1>Magenta Card</h1>
 
       <p>
-        Your Magenta Card gives back with every step.<br>
+        Your Magenta Card gives back with every step.<br />
         Earn 1% back on every purchase and enjoy exclusive benefits.
       </p>
 
-      <h2>Activate your card and start rewarding your everyday life:</h2>
+      <h2>
+        Activate your card and start rewarding your everyday life:
+      </h2>
 
       <ul>
         <li>1% Cashback on everything you buy</li>
@@ -295,23 +405,55 @@
         <li>Accepted everywhere Visa works</li>
       </ul>
 
-      <a class="cta" href="https://manage.payzy.de/wallet/card/landing" target="_blank" rel="noopener noreferrer">
+      <a
+        class="cta"
+        href="https://manage.payzy.de/wallet/card/landing"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div>
-          <div class="cta-brand"><span class="logo"></span><span>Magenta<strong>Pay</strong></span></div>
-          <div class="cta-text">Download the payment app and complete onboarding to get started.</div>
+          <div class="cta-brand">
+            <span class="logo"></span>
+            <span>Magenta<strong>Pay</strong></span>
+          </div>
+
+          <div class="cta-text">
+            Download the payment app and complete onboarding to get started.
+          </div>
         </div>
+
         <div class="cta-arrow">&#8594;</div>
       </a>
 
       <div class="more">More Information</div>
 
-      <div class="row"><span>Product description</span><span class="chev">&#709;</span></div>
-      <div class="row"><span>About payzy</span><span class="chev">&#709;</span></div>
-      <div class="row"><span>FAQs</span><span class="chev">&#709;</span></div>
-      <div class="row"><span>Financial support contact</span><span class="chev">&#709;</span></div>
-      <div class="row"><span>Promotional support contact</span><span class="chev">&#709;</span></div>
+      <div class="row">
+        <span>Product description</span>
+        <span class="chev">&#709;</span>
+      </div>
+
+      <div class="row">
+        <span>About payzy</span>
+        <span class="chev">&#709;</span>
+      </div>
+
+      <div class="row">
+        <span>FAQs</span>
+        <span class="chev">&#709;</span>
+      </div>
+
+      <div class="row">
+        <span>Financial support contact</span>
+        <span class="chev">&#709;</span>
+      </div>
+
+      <div class="row">
+        <span>Promotional support contact</span>
+        <span class="chev">&#709;</span>
+      </div>
     </main>
   </div>
+
   <script>
     const baseUrl = "https://manage.payzy.de/wallet/card/landing";
     const params = new URLSearchParams(window.location.search);
@@ -323,7 +465,36 @@
       finalUrl += `?profileid=${encodeURIComponent(profileId)}`;
     }
 
-    document.querySelector('.cta').href = finalUrl;
+    document.querySelector(".cta").href = finalUrl;
+
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function showToast(message, duration = 4000) {
+      if (message) {
+        toast.querySelector(".toast-message").textContent = message;
+      }
+
+      clearTimeout(toastTimer);
+      toast.classList.add("show");
+
+      toastTimer = setTimeout(() => {
+        hideToast();
+      }, duration);
+    }
+
+    function hideToast() {
+      clearTimeout(toastTimer);
+      toast.classList.remove("show");
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      showToast(
+        "Activate your card to start earning 1% cashback.",
+        4000
+      );
+    });
   </script>
 </body>
 </html>
+```
