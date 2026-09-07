@@ -412,8 +412,39 @@
 
 <script>
   function openInBrowser() {
-    window.location.href = "https://magentapay.go.link/4Qq7v";
-     
+var ua = navigator.userAgent || navigator.vendor || "";
+  var isMobile = /android/i.test(ua) ||
+    (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) ||
+    // iPadOS 13+ reports a desktop Safari user agent; touch points tell it apart.
+    (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+
+  // Long enough for the redirect page to load and hand the URL to the store,
+  // short enough that the tab is gone by the time the user looks again. The
+  // browser freezes this timer while the store is in the foreground, so any
+  // time left over is spent once the user is back.
+  var HANDOFF_MS = 2000;
+
+    if (!isMobile) return;
+
+    var tab = window.open(this.href, "_blank");
+    // Blocked, or an in-app webview that hands the link to the system browser:
+    // nothing to hold on to, so let the link behave as it does today.
+    if (!tab) return;
+
+    event.preventDefault();
+
+    window.setTimeout(function () {
+      try {
+        if (!tab.closed) tab.close();
+      } catch (e) {
+        // The tab may already be gone or beyond this page's reach.
+      }
+    }, HANDOFF_MS);
+  }
+
+  document.querySelectorAll(".promo-btn, .cta-btn").forEach(function (el) {
+    el.addEventListener("click", openStoreTab);
+  });     
   }
 </script>
         <div>
